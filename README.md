@@ -240,7 +240,6 @@ scanzo-api/
 ├── prompts/
 │   └── receipt_prompt.py    # Receipt extraction prompt
 ├── utils/
-│   ├── validators.py        # Amount validation utilities
 │   ├── image_utils.py       # Image optimization
 │   └── logger.py            # Logging configuration
 ├── tests/
