@@ -363,9 +363,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-Your Name - [contact@mdah.dev](mailto:your.email@example.com)
+My Name - [Mehdi DADAH](mailto:contact@mdah.dev)
 
-Project Link: [https://github.com/mehdidadah/scanzo-starter](https://github.com/yourusername/scanzo-api)
+Project Link: [https://github.com/mehdidadah/scanzo-starter](https://github.com/mehdidadah/scanzo-starter)
 
 ---
 
