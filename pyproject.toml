@@ -1,0 +1,58 @@
+# pyproject.toml - Configuration moderne pour pytest
+# Alternative à pytest.ini si vous préférez pyproject.toml
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Fix pour le warning asyncio
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+# Options
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+
+# Filtrer les warnings
+filterwarnings = [
+    "ignore::DeprecationWarning:httpx",
+    "ignore::PendingDeprecationWarning:starlette.formparsers",
+    "ignore::pytest.PytestDeprecationWarning:pytest_asyncio",
+    # Ou pour ignorer TOUS les warnings des dépendances:
+    # "ignore::DeprecationWarning",
+    # "ignore::PendingDeprecationWarning",
+]
+
+# Markers
+markers = [
+    "unit: Tests unitaires",
+    "integration: Tests d'intégration",
+    "performance: Tests de performance",
+    "slow: Tests lents (> 5s)",
+    "asyncio: Tests asynchrones",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/venv/*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

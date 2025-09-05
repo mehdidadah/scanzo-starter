@@ -3,28 +3,28 @@ from typing import Optional, List
 from enum import Enum
 
 class TaxRateType(str, Enum):
-    """Types de taux de TVA standards"""
+    """Standard VAT rate types"""
     SUPER_REDUCED = "super_reduced"  # 2.1%
     REDUCED = "reduced"              # 5.5%
     INTERMEDIATE = "intermediate"    # 10%
     STANDARD = "standard"            # 20%
-    CUSTOM = "custom"                # Autres
+    CUSTOM = "custom"                # Others
 
 class TaxLine(BaseModel):
     """
-    Représente une ligne de taxe unique.
-    Peut y avoir plusieurs lignes avec le même taux.
+    Represents a single tax line.
+    There can be multiple lines with the same rate.
     """
-    label: Optional[str] = Field(None, description="Identifiant de ligne (A, B, C, *)")
-    rate: float = Field(..., ge=0, le=100, description="Taux en pourcentage")
-    base_amount: float = Field(..., description="Montant HT/base")
-    tax_amount: float = Field(..., description="Montant de taxe")
-    total_with_tax: Optional[float] = Field(None, description="Montant TTC")
+    label: Optional[str] = Field(None, description="Line identifier (A, B, C, *)")
+    rate: float = Field(..., ge=0, le=100, description="Rate in percent")
+    base_amount: float = Field(..., description="Net amount/base (HT)")
+    tax_amount: float = Field(..., description="Tax amount")
+    total_with_tax: Optional[float] = Field(None, description="Gross amount (TTC)")
     
     @computed_field
     @property
     def calculated_total(self) -> float:
-        """Calcule le total si non fourni"""
+        """Compute total if not provided"""
         if self.total_with_tax is not None:
             return self.total_with_tax
         return round(self.base_amount + self.tax_amount, 2)
@@ -32,7 +32,7 @@ class TaxLine(BaseModel):
     @computed_field
     @property
     def rate_type(self) -> TaxRateType:
-        """Détermine le type de taux"""
+        """Determine the rate type"""
         if 2 <= self.rate <= 2.5:
             return TaxRateType.SUPER_REDUCED
         elif 5 <= self.rate <= 6:
